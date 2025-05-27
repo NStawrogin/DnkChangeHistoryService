@@ -1,0 +1,75 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DnkChangeHistoryService", "DnkChangeHistoryService\DnkChangeHistoryService.csproj", "{95B8E9E3-7D5C-47BC-A14E-16E6917F727D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F3AC8B10-E863-4D36-A80B-54D8B7C7D9B6}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{4B1B9591-2C2E-4C91-AD26-B61E47C5A515}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1A84DB8F-33FE-4A4E-9E05-FF79A55912B5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DnkChangeHistoryService.Domain", "DnkChangeHistoryService.Domain\DnkChangeHistoryService.Domain.csproj", "{32627AAD-0A6A-48C4-BE6D-BC7312831432}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DnkChangeHistoryService.Infrastructure", "DnkChangeHistoryService.Infrastructure\DnkChangeHistoryService.Infrastructure.csproj", "{1108DF79-4E52-45BE-BDCA-23B67A5ABABE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DnkChangeHistoryService.Infrastructure.Tests", "DnkChangeHistoryService.Infrastructure.Tests\DnkChangeHistoryService.Infrastructure.Tests.csproj", "{8E31B513-AC93-4D74-A0C2-46C63250F6BA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DnkChangeHistoryService.Tests", "DnkChangeHistoryService.Tests\DnkChangeHistoryService.Tests.csproj", "{C620B99B-98C7-4254-8400-77593A1BDE09}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FunctionalTests", "FunctionalTests", "{3791437B-1265-4BA5-91C9-C02ECBBD6E0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DnkChangeHistoryService.FunctionalTests", "DnkChangeHistoryService.FunctionalTests\DnkChangeHistoryService.FunctionalTests.csproj", "{3800DE0B-DAEF-45AD-BCBD-4E8B7E63D216}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{95B8E9E3-7D5C-47BC-A14E-16E6917F727D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95B8E9E3-7D5C-47BC-A14E-16E6917F727D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95B8E9E3-7D5C-47BC-A14E-16E6917F727D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95B8E9E3-7D5C-47BC-A14E-16E6917F727D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32627AAD-0A6A-48C4-BE6D-BC7312831432}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32627AAD-0A6A-48C4-BE6D-BC7312831432}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32627AAD-0A6A-48C4-BE6D-BC7312831432}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32627AAD-0A6A-48C4-BE6D-BC7312831432}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1108DF79-4E52-45BE-BDCA-23B67A5ABABE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1108DF79-4E52-45BE-BDCA-23B67A5ABABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1108DF79-4E52-45BE-BDCA-23B67A5ABABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1108DF79-4E52-45BE-BDCA-23B67A5ABABE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E31B513-AC93-4D74-A0C2-46C63250F6BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E31B513-AC93-4D74-A0C2-46C63250F6BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E31B513-AC93-4D74-A0C2-46C63250F6BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E31B513-AC93-4D74-A0C2-46C63250F6BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C620B99B-98C7-4254-8400-77593A1BDE09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C620B99B-98C7-4254-8400-77593A1BDE09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C620B99B-98C7-4254-8400-77593A1BDE09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C620B99B-98C7-4254-8400-77593A1BDE09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3800DE0B-DAEF-45AD-BCBD-4E8B7E63D216}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3800DE0B-DAEF-45AD-BCBD-4E8B7E63D216}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3800DE0B-DAEF-45AD-BCBD-4E8B7E63D216}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3800DE0B-DAEF-45AD-BCBD-4E8B7E63D216}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{95B8E9E3-7D5C-47BC-A14E-16E6917F727D} = {4B1B9591-2C2E-4C91-AD26-B61E47C5A515}
+		{32627AAD-0A6A-48C4-BE6D-BC7312831432} = {4B1B9591-2C2E-4C91-AD26-B61E47C5A515}
+		{1108DF79-4E52-45BE-BDCA-23B67A5ABABE} = {4B1B9591-2C2E-4C91-AD26-B61E47C5A515}
+		{8E31B513-AC93-4D74-A0C2-46C63250F6BA} = {1A84DB8F-33FE-4A4E-9E05-FF79A55912B5}
+		{C620B99B-98C7-4254-8400-77593A1BDE09} = {1A84DB8F-33FE-4A4E-9E05-FF79A55912B5}
+		{3791437B-1265-4BA5-91C9-C02ECBBD6E0B} = {1A84DB8F-33FE-4A4E-9E05-FF79A55912B5}
+		{3800DE0B-DAEF-45AD-BCBD-4E8B7E63D216} = {3791437B-1265-4BA5-91C9-C02ECBBD6E0B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5000D998-59FE-4FFA-A658-B118C79C6897}
+	EndGlobalSection
+EndGlobal
