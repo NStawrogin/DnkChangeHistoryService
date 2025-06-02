@@ -1,12 +1,7 @@
-﻿using DnkCompanyMicroservice.Application.Companies.Commands.Create;
-using DnkCompanyMicroservice.Application.Companies.Commands.Update;
-using DnkCompanyMicroservice.Application.Companies.Queries.Details;
-using DnkCompanyMicroservice.Application.Companies.Queries.LegacyInformation;
-using DnkCompanyMicroservice.Application.Companies.Queries.Names;
-using DnkCompanyMicroservice.Application.Companies.Queries.Overview;
-using DnkCompanyMicroservice.Application.Companies.Queries.Update;
-using DnkCompanyMicroservice.Application.CompanyDeletion;
-using DnkCompanyMicroservice.Application.CompanyDeletionFlags;
+﻿using DnkChangeHistoryService.Application.CommentHistories.Queries.History;
+using Microsoft.AspNetCore.Mvc;
+using NSwag.Annotations;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
 namespace DnkChangeHistoryService.Endpoints;
@@ -14,10 +9,23 @@ namespace DnkChangeHistoryService.Endpoints;
 [ExcludeFromCodeCoverage]
 internal static class ChangeHistoryEndpointConfigurations
 {
-    private const string CompanyApiTag = "ChangeHistoryApi";
+    private const string ChangeHistoryApiTag = "ChangeHistoryApi";
 
     public static void ConfigureChangeHistoryEndpoints(this IEndpointRouteBuilder app)
     {
-
+        app.MapGet("/history/commenthistory",
+            [OpenApiOperation("Get comment history", "Get comment history data by id and language")]
+            async (
+                    [FromServices] ICommentHistoryQueryHandler commentHistoryQueryHandler,
+                    [FromQuery] Guid id,
+                    [FromQuery][Length(2, 2)] string language,
+                    CancellationToken cancellationToken = default) =>
+            {
+                List<CommentHistoryResponse> response = await commentHistoryQueryHandler.Handle(new CommentHistoryQuery { CommentId = id, Language = language }, cancellationToken);
+                return Results.Ok(response);
+            })
+            .WithName("GetCommentHistory")
+            .WithTags(ChangeHistoryApiTag)
+            .Produces<List<CommentHistoryResponse>>();
     }
 }

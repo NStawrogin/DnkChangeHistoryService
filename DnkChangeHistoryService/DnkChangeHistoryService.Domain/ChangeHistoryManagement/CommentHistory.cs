@@ -1,4 +1,5 @@
-﻿using DnkChangeHistoryService.Domain.Helpers;
+﻿using DnkChangeHistoryService.Domain.ChangeHistory.CommentHistory;
+using DnkChangeHistoryService.Domain.Helpers;
 
 namespace DnkChangeHistoryService.Domain.ChangeHistoryManagement;
 
@@ -8,5 +9,9 @@ public class CommentHistory : IEntity
 
     public DateTime CreationDate { get; set; }
 
-    public string LanguageTwoLetterCode { get; set; } = string.Empty;
+    public Guid UserId { get; set; }
+
+    public Guid CommentId { get; set; }
+
+    public CommentHistoryReason Reason { get; set; }
 }

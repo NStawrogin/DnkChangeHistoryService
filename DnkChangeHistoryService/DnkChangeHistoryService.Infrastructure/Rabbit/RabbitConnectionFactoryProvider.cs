@@ -1,8 +1,8 @@
-﻿using DnkCompanyMicroservice.Domain.Rabbit;
+﻿using DnkChangeHistoryService.Domain.Rabbit;
 using RabbitMQ.Client;
 using System.Diagnostics.CodeAnalysis;
 
-namespace DnkCompanyMicroservice.Infrastructure.Rabbit;
+namespace DnkChangeHistoryService.Infrastructure.Rabbit;
 
 [ExcludeFromCodeCoverage(Justification = "Can not unit test RabbitMq connection")]
 public class RabbitConnectionFactoryProvider(RabbitConfig rabbitConfig)

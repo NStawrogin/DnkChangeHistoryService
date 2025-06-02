@@ -59,7 +59,9 @@ public class Program
 
         OpenApiStartup.RegisterSwaggerServices(builder);
 
-        //RabbitStartup.RegisterRabbitServices(builder);
+        RabbitStartup.RegisterRabbitServices(builder);
+
+        CommentHistoryServiceStartup.RegisterCommentHistoryService(builder);
 
         builder.Services.AddChangeHistoryServiceApplication();
     }

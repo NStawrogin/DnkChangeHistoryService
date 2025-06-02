@@ -10,6 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Application\CommentHistories\Commands\**" />
+    <Content Remove="Application\CommentHistories\Commands\**" />
+    <EmbeddedResource Remove="Application\CommentHistories\Commands\**" />
+    <None Remove="Application\CommentHistories\Commands\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Asp.Versioning.Http" Version="8.1.0" />
     <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
     <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="8.0.1" />
@@ -31,12 +38,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DnkChangeHistoryService.Infrastructure\DnkChangeHistoryService.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Application\CommentHistory\Commands\Create\" />
-    <Folder Include="Application\CommentHistory\Mapper\" />
-    <Folder Include="Application\CommentHistory\Queries\Overview\" />
   </ItemGroup>
 
 </Project>

@@ -29,8 +29,4 @@
     <ProjectReference Include="..\DnkChangeHistoryService\DnkChangeHistoryService.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
 </Project>

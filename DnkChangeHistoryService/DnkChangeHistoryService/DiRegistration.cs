@@ -1,4 +1,6 @@
-﻿using DnkChangeHistoryService.Infrastructure;
+﻿using DnkChangeHistoryService.Application.CommentHistories.Mapper;
+using DnkChangeHistoryService.Application.CommentHistories.Queries.History;
+using DnkChangeHistoryService.Infrastructure;
 using System.Diagnostics.CodeAnalysis;
 
 namespace DnkChangeHistoryService;
@@ -23,6 +25,7 @@ internal static class DiRegistration
 
     private static void RegisterCommentHistoryServices(this IServiceCollection services)
     {
-
+        services.AddScoped<ICommentHistoryQueryHandler, CommentHistoryQueryHandler>();
+        services.AddScoped<ICommentHistoryMapper, CommentHistoryMapper>();
     }
 }
