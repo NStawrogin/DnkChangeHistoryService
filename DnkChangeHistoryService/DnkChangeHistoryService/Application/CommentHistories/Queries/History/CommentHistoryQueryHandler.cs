@@ -6,14 +6,14 @@ namespace DnkChangeHistoryService.Application.CommentHistories.Queries.History;
 
 public class CommentHistoryQueryHandler(
     ILogger<CommentHistoryQueryHandler> logger,
-    ICommentHistoryQueryRepository queryHandler,
+    ICommentHistoryQueryRepository queryRepository,
     ICommentHistoryMapper mapper) : ICommentHistoryQueryHandler
 {
     public async Task<List<CommentHistoryResponse>> Handle(CommentHistoryQuery request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Handling CommentHistoryQuery for commentId: {CommentId}", request.CommentId);
 
-        IEnumerable<CommentHistory> commentHistories = await queryHandler.GetCommentHistories(request.CommentId, cancellationToken);
+        IEnumerable<CommentHistory> commentHistories = await queryRepository.GetCommentHistories(request.CommentId, cancellationToken);
 
         if (commentHistories == null)
         {
