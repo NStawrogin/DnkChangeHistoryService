@@ -22,3 +22,4 @@ internal static class EndpointStartup
 
         groupBuilder.ConfigureChangeHistoryEndpoints();
     }
+}

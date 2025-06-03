@@ -28,8 +28,4 @@
     <ProjectReference Include="..\DnkChangeHistoryService\DnkChangeHistoryService.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Application\" />
-  </ItemGroup>
-
 </Project>

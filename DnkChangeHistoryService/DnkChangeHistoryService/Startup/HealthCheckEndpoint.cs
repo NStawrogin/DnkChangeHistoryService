@@ -26,6 +26,6 @@ internal static class HealthCheckEndpoint
     /// <param name="builder"></param>
     public static void RegisterHealthCheckServices(WebApplicationBuilder builder)
     {
-        builder.Services.AddHealthChecks().AddCheck<HealthCheck>("Company health");
+        builder.Services.AddHealthChecks().AddCheck<HealthCheck>("Change History health");
     }
 }

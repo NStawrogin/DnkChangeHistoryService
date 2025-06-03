@@ -1,9 +1,9 @@
-﻿using DnkCompanyMicroservice.Domain.Rabbit;
-using DnkCompanyMicroservice.Infrastructure.Rabbit;
+﻿using DnkChangeHistoryService.Domain.Rabbit;
+using DnkChangeHistoryService.Infrastructure.Rabbit;
 using RabbitMQ.Client;
 using System.Diagnostics.CodeAnalysis;
 
-namespace DnkCompanyMicroService.FunctionalTests._Shared;
+namespace DnkChangeHistoryService.FunctionalTests._Shared;
 
 [ExcludeFromCodeCoverage]
 /// <summary>

@@ -1,4 +1,5 @@
-﻿using DnkChangeHistoryService.Domain.ChangeHistoryManagement;
+﻿using DnkChangeHistoryService.Domain.ChangeHistory.CommentHistory;
+using DnkChangeHistoryService.Domain.ChangeHistoryManagement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Diagnostics.CodeAnalysis;
@@ -10,23 +11,13 @@ public class CommentHistoryConfigurations : IEntityTypeConfiguration<CommentHist
 {
     public void Configure(EntityTypeBuilder<CommentHistory> builder)
     {
-        //builder.ToTable("CommentHistories");
+        builder.ToTable("CommentHistories");
 
-        //SeedData(builder);
+        builder.HasKey(c => c.Id);
+
+        builder.Property(c => c.CreationDate).IsRequired();
+        builder.Property(c => c.UserId).IsRequired();
+        builder.Property(c => c.CommentId).IsRequired();
+        builder.Property(c => c.Reason).IsRequired();
     }
-
-    //private static void SeedData(EntityTypeBuilder<CommentHistory> builder)
-    //{
-    //    builder.HasData(
-    //        new List<CommentHistory>
-    //        {
-    //            new()
-    //            {
-    //                CreationDate = new DateTime(2024, 10, 11),
-    //                Id = Guid.Parse("a70e9d17-78d1-45e4-9f1f-58b587edcc7c"),
-    //                LanguageTwoLetterCode = "de"
-    //            }
-    //        }
-    //    );
-    //}
 }
