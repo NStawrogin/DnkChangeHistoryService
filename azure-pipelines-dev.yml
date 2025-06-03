@@ -13,10 +13,10 @@ trigger:
 resources:
   repositories:
     - repository: self
-    - repository: DnkCommentMicroService-Deploy
+    - repository: DnkChangeHistoryService-Deploy
       type: git
       ref: main
-      name: DnkCommentMicroService-Deploy
+      name: DnkChangeHistoryService-Deploy
 
 variables:
 # Container registry service connection established during pipeline creation
