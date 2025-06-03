@@ -11,13 +11,14 @@ public class CommentHistoryQueryHandler(
 {
     public async Task<List<CommentHistoryResponse>> Handle(CommentHistoryQuery request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Handling CommentHistoryQuery for commentId: {CommentId}", request.CommentId);
+        logger.LogInformation("Fetching comment history reportId: {ReportId}, contextId: {ContextId}, language: {Language}",
+            request.ReportId, request.ContextId, request.Language);
 
-        IEnumerable<CommentHistory> commentHistories = await queryRepository.GetCommentHistories(request.CommentId, cancellationToken);
+        IEnumerable<CommentHistory> commentHistories = await queryRepository.GetCommentHistories(request.ReportId, request.ContextId, cancellationToken);
 
         if (commentHistories == null)
         {
-            logger.LogWarning("No comment history found for commentId: {CommentId}", request.CommentId);
+            logger.LogWarning("No comment history found for reportId: {ReportId}, contextId: {ContextId}", request.ReportId, request.ContextId);
             return new ();
         }
 

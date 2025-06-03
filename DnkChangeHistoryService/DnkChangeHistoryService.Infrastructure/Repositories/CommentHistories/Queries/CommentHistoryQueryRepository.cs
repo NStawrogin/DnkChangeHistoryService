@@ -8,10 +8,10 @@ namespace DnkChangeHistoryService.Infrastructure.Repositories.CommentHistories.Q
 [ExcludeFromCodeCoverage]
 public class CommentHistoryQueryRepository(ChangeHistoryWorkContext context) : ICommentHistoryQueryRepository
 {
-    public async Task<IEnumerable<CommentHistory>> GetCommentHistories(Guid commentId, CancellationToken cancellationToken)
+    public async Task<IEnumerable<CommentHistory>> GetCommentHistories(Guid reportId, string contextId, CancellationToken cancellationToken)
     {
         return await context.CommentHistories
-            .Where(ch => ch.CommentId == commentId)
+            .Where(ch => ch.ReportId == reportId && ch.ContextId == contextId)
             .ToListAsync(cancellationToken);
     }
 }

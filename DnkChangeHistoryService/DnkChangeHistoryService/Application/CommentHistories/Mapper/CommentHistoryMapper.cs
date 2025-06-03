@@ -13,7 +13,8 @@ public class CommentHistoryMapper : ICommentHistoryMapper
             {
                 CreationDate = ch.CreationDate,
                 UserId = ch.UserId,
-                CommentId = ch.CommentId,
+                ContextId = ch.ContextId,
+                DisclosureRequirementId = ch.DisclosureRequirementId,
                 Event = GetLocalizedReason(ch.Reason, language)
             })
             .ToList();
