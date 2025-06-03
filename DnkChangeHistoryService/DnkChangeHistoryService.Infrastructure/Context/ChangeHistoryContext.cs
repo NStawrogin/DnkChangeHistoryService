@@ -15,22 +15,5 @@ public abstract class ChangeHistoryContext<TContext>(DbContextOptions<TContext> 
         modelBuilder.HasDefaultSchema("history");
 
         base.OnModelCreating(modelBuilder);
-
-        ApplyConfigurations(modelBuilder);
-    }
-
-    private static void ApplyConfigurations(ModelBuilder modelBuilder)
-    {
-        Assembly assembly = Assembly.GetExecutingAssembly();
-
-        List<Type> configurationTypes = assembly.GetTypes()
-            .Where(t => t is { IsClass: true, IsAbstract: false } && t.GetInterfaces()
-                .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEntityTypeConfiguration<>)))
-            .ToList();
-
-        foreach (object configuration in configurationTypes.Select(type => Activator.CreateInstance(type)!))
-        {
-            modelBuilder.ApplyConfiguration((dynamic)configuration);
-        }
     }
 }

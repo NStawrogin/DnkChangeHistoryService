@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace DnkCompanyMicroService.FunctionalTests._Shared;
+namespace DnkChangeHistoryService.FunctionalTests._Shared;
 internal static class ServiceDescriptorHelper
 {
     public static void RemoveServiceDescriptor<T>(IServiceCollection services)

@@ -1,6 +1,6 @@
 ﻿using Testcontainers.MsSql;
 
-namespace DnkCompanyMicroService.FunctionalTests._Shared;
+namespace DnkChangeHistoryService.FunctionalTests._Shared;
 public class MsSqlTestProvider : IAsyncLifetime
 {
     private readonly MsSqlContainer msSqlContainer;

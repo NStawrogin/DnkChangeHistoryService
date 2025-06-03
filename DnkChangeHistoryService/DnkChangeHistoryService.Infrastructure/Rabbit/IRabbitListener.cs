@@ -1,6 +1,6 @@
-﻿//namespace DnkCompanyMicroservice.Infrastructure.Rabbit;
+﻿namespace DnkChangeHistoryService.Infrastructure.Rabbit;
 
-//public interface IRabbitListener
-//{
-//    Task RegisterDefaultDeleteCompanyQueue();
-//}
+public interface IRabbitListener
+{
+    Task RegisterDefaultCommentHistoryQueue();
+}

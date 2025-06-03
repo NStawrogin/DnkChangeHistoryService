@@ -1,4 +1,4 @@
-﻿namespace DnkCompanyMicroService.FunctionalTests._Shared;
+﻿namespace DnkChangeHistoryService.FunctionalTests._Shared;
 
 public class GlobalTestSettings
 {
