@@ -5,7 +5,10 @@ namespace DnkChangeHistoryService.Application.CommentHistories.Queries.History;
 public class CommentHistoryQuery
 {
     [Required]
-    public Guid CommentId { get; set; }
+    public Guid ReportId { get; set; }
+
+    [Required]
+    public string ContextId { get; set; } = string.Empty;
 
     [Required]
     public string Language { get; set; } = string.Empty;

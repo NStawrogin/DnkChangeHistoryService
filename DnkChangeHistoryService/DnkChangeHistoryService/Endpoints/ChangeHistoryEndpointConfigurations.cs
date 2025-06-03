@@ -14,14 +14,15 @@ internal static class ChangeHistoryEndpointConfigurations
     public static void ConfigureChangeHistoryEndpoints(this IEndpointRouteBuilder app)
     {
         app.MapGet("/history/commenthistory",
-            [OpenApiOperation("Get comment history", "Get comment history data by id and language")]
+            [OpenApiOperation("Get comment history", "Get comment history data by reportId, contextId and language")]
             async (
                     [FromServices] ICommentHistoryQueryHandler commentHistoryQueryHandler,
-                    [FromQuery] Guid id,
+                    [FromQuery] Guid reportId,
+                    [FromQuery] string contextId,
                     [FromQuery][Length(2, 2)] string language,
                     CancellationToken cancellationToken = default) =>
             {
-                List<CommentHistoryResponse> response = await commentHistoryQueryHandler.Handle(new CommentHistoryQuery { CommentId = id, Language = language }, cancellationToken);
+                List<CommentHistoryResponse> response = await commentHistoryQueryHandler.Handle(new CommentHistoryQuery { ReportId = reportId, ContextId = contextId, Language = language }, cancellationToken);
                 return Results.Ok(response);
             })
             .WithName("GetCommentHistory")

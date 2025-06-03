@@ -4,5 +4,5 @@ namespace DnkChangeHistoryService.Infrastructure.Repositories.CommentHistories.Q
 
 public interface ICommentHistoryQueryRepository
 {
-    Task<IEnumerable<CommentHistory>> GetCommentHistories(Guid commentId, CancellationToken cancellationToken);
+    Task<IEnumerable<CommentHistory>> GetCommentHistories(Guid reportId, string contextId, CancellationToken cancellationToken);
 }
