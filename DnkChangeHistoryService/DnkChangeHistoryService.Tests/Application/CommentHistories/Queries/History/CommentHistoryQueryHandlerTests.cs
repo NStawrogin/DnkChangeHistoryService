@@ -4,6 +4,7 @@ using DnkChangeHistoryService.Domain.ChangeHistory.CommentHistory;
 using DnkChangeHistoryService.Domain.ChangeHistoryManagement;
 using DnkChangeHistoryService.Infrastructure.Repositories.CommentHistories.Queries;
 using FakeItEasy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.Testing;
 using NUnit.Framework;
 
@@ -30,9 +31,10 @@ public class CommentHistoryQueryHandlerTests
     public async Task Handle_ShouldReturnEmptyList_WhenNoHistoryExists()
     {
         // Arrange
-        Guid commentId = Guid.NewGuid();
-        CommentHistoryQuery request = new() { CommentId = commentId, Language = "en" };
-        A.CallTo(() => this.queryRepository.GetCommentHistories(commentId, A<CancellationToken>.Ignored)).Returns(Task.FromResult<IEnumerable<CommentHistory>>(null));
+        Guid reportId = Guid.NewGuid();
+        string contextId = "contextId";
+        CommentHistoryQuery request = new() { ReportId = reportId, ContextId = contextId, Language = "en" };
+        A.CallTo(() => this.queryRepository.GetCommentHistories(reportId, contextId, A<CancellationToken>.Ignored)).Returns(Task.FromResult<IEnumerable<CommentHistory>>(null));
 
         // Act
         List<CommentHistoryResponse> result = await this.handler.Handle(request, CancellationToken.None);
@@ -46,21 +48,26 @@ public class CommentHistoryQueryHandlerTests
     {
         // Arrange
         Guid commentId = Guid.NewGuid();
+        Guid reportId = Guid.NewGuid();
+        string contextId = "contextId";
         Guid userId = Guid.NewGuid();
-        CommentHistoryQuery request = new() { CommentId = commentId, Language = "de" };
+        CommentHistoryQuery request = new() { ReportId = reportId, ContextId = contextId, Language = "de" };
 
         List<CommentHistory> fakeHistories = new()
         {
             new CommentHistory
             {
                 CommentId = commentId,
+                ReportId = reportId,
+                ContextId = contextId,
+                DisclosureRequirementId = "",
                 UserId = userId,
                 Reason = CommentHistoryReason.Created,
                 CreationDate = DateTime.UtcNow
             }
         };
 
-        A.CallTo(() => this.queryRepository.GetCommentHistories(commentId, A<CancellationToken>.Ignored))
+        A.CallTo(() => this.queryRepository.GetCommentHistories(reportId, contextId, A<CancellationToken>.Ignored))
             .Returns(fakeHistories);
 
         // Act
@@ -68,7 +75,7 @@ public class CommentHistoryQueryHandlerTests
 
         // Assert
         Assert.That(result, Is.Not.Empty);
-        Assert.That(result[0].CommentId, Is.EqualTo(commentId));
+        Assert.That(result[0].ContextId, Is.EqualTo(contextId));
         Assert.That(result[0].UserId, Is.EqualTo(userId));
         Assert.That(result[0].Event, Is.EqualTo("Kommentar erstellt"));
     }
