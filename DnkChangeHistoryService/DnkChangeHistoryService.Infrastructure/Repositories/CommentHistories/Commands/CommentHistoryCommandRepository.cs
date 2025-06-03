@@ -15,6 +15,9 @@ public class CommentHistoryCommandRepository(ChangeHistoryWorkContext context) :
         CommentHistory entry = new()
         {
             Id = Guid.NewGuid(),
+            ReportId = message.ReportId,
+            ContextId = message.ContextId,
+            DisclosureRequirementId = message.DisclosureRequirementId,
             CommentId = message.CommentId,
             UserId = message.UserId,
             CreationDate = message.Timestamp,
