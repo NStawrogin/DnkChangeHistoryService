@@ -6,6 +6,8 @@ namespace DnkChangeHistoryService.Application.CommentHistories.Mapper;
 
 public class CommentHistoryMapper : ICommentHistoryMapper
 {
+    private const string GermanLanguageCode = "de";
+
     public List<CommentHistoryResponse> MapToResponse(IEnumerable<CommentHistory> commentHistories, string language)
     {
         List<CommentHistoryResponse> response = commentHistories
@@ -28,12 +30,17 @@ public class CommentHistoryMapper : ICommentHistoryMapper
         {
             CommentHistoryReason.Created => language switch
             {
-                "de" => "Kommentar erstellt",
+                GermanLanguageCode => "Kommentar erstellt",
                 _ => "Comment created"
+            },
+            CommentHistoryReason.Closed => language switch
+            {
+                GermanLanguageCode => "Kommentar abgeschlossen",
+                _ => "Comment closed"
             },
             _ => language switch
             {
-                "de" => "Unbekanntes Ereignis",
+                GermanLanguageCode => "Unbekanntes Ereignis",
                 _ => "Unknown event"
             }
         };
