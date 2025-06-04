@@ -38,6 +38,16 @@ public class CommentHistoryMapper : ICommentHistoryMapper
                 GermanLanguageCode => "Kommentar abgeschlossen",
                 _ => "Comment closed"
             },
+            CommentHistoryReason.SubTaskClosed => language switch
+            {
+                GermanLanguageCode => "Teilaufgabe abgeschlossen",
+                _ => "Subtask closed"
+            },
+            CommentHistoryReason.SubTaskReopened => language switch
+            {
+                GermanLanguageCode => "Teilaufgabe wiedereröffnet“",
+                _ => "Subtask reopened"
+            },
             _ => language switch
             {
                 GermanLanguageCode => "Unbekanntes Ereignis",
