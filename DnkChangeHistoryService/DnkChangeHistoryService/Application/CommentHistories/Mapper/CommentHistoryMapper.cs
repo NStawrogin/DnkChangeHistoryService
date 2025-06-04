@@ -31,6 +31,11 @@ public class CommentHistoryMapper : ICommentHistoryMapper
                 "de" => "Kommentar erstellt",
                 _ => "Comment created"
             },
+            CommentHistoryReason.Closed => language switch
+            {
+                "de" => "Kommentar abgeschlossen",
+                _ => "Comment closed"
+            },
             _ => language switch
             {
                 "de" => "Unbekanntes Ereignis",
