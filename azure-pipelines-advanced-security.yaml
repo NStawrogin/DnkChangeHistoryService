@@ -1,0 +1,35 @@
+trigger: 
+  - none
+
+schedules:
+- cron: '0 0 * * *'
+  displayName: Daily midnight build
+  branches:
+    include:
+    - develop
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    
+    - task: AdvancedSecurity-Codeql-Init@1
+      inputs:
+        languages: 'csharp'
+        loglevel: 2
+        buildtype: None
+
+    - task: AdvancedSecurity-Dependency-Scanning@1
+
+    - task: AdvancedSecurity-Codeql-Analyze@1
