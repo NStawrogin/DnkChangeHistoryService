@@ -14,7 +14,18 @@ public class CommentHistoryService(ICommentHistoryCommandRepository commentHisto
             case CommentHistoryReason.Created:
                 await commentHistoryCommandRepository.CreateCommentEntry(message, cancellationToken);
                 break;
-
+            case CommentHistoryReason.Replied:
+                await commentHistoryCommandRepository.CreateCommentEntry(message, cancellationToken);
+                break;
+            case CommentHistoryReason.Closed:
+                await commentHistoryCommandRepository.CreateCommentEntry(message, cancellationToken);
+                break;
+            case CommentHistoryReason.SubTaskClosed:
+                await commentHistoryCommandRepository.CreateCommentEntry(message, cancellationToken);
+                break;
+            case CommentHistoryReason.SubTaskReopened:
+                await commentHistoryCommandRepository.CreateCommentEntry(message, cancellationToken);
+                break;
             default:
                 break;
         }
