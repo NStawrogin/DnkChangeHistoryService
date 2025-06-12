@@ -13,6 +13,7 @@ public class CommentHistoryMapper : ICommentHistoryMapper
         List<CommentHistoryResponse> response = commentHistories
             .Select(ch => new CommentHistoryResponse
             {
+                CommentId = ch.CommentId,
                 CreationDate = ch.CreationDate,
                 UserId = ch.UserId,
                 ContextId = ch.ContextId,
