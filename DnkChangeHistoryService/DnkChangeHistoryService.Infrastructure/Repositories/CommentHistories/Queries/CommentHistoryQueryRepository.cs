@@ -11,7 +11,8 @@ public class CommentHistoryQueryRepository(ChangeHistoryWorkContext context) : I
     public async Task<IEnumerable<CommentHistory>> GetCommentHistories(Guid reportId, string contextId, CancellationToken cancellationToken)
     {
         return await context.CommentHistories
-            .Where(ch => ch.ReportId == reportId && ch.ContextId == contextId)
-            .ToListAsync(cancellationToken);
+           .Where(ch => ch.ReportId == reportId && ch.ContextId == contextId)
+           .OrderByDescending(ch => ch.CreationDate)
+           .ToListAsync(cancellationToken);
     }
 }
