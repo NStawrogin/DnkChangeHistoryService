@@ -7,7 +7,7 @@ trigger:
     include:
       - release/*
       - hotfix/*
-      
+
   paths:
     exclude:
       - azure-pipelines-advanced-security.yml
@@ -21,83 +21,86 @@ resources:
       name: DnkChangeHistoryService-Deploy
 
 variables:
-# Container registry service connection established during pipeline creation
-- group: stage-container-registry-group
-- name: imageRepository
-  value: 'dnkchangehistoryservice'
-- name: dockerfilePath
-  value: '$(Build.SourcesDirectory)/DnkChangeHistoryService/DnkChangeHistoryService/Dockerfile'
-- name: tag 
-  value: '$(Build.BuildNumber)'
+  # Container registry service connection established during pipeline creation
+  - group: stage-container-registry-group
+  - name: imageRepository
+    value: "dnkchangehistoryservice"
+  - name: dockerfilePath
+    value: "$(Build.SourcesDirectory)/DnkChangeHistoryService/DnkChangeHistoryService/Dockerfile"
+  - name: tag
+    value: "$(Build.BuildNumber)"
 
 stages:
-- stage: InstallDependencies
-  displayName: Install missing dependencies 
-  jobs:
-  - job: Dependencies
-    displayName: Dependencies
-    pool:
-      name: $(poolName)
-    steps:
-      - script: |
-          if ! command -v yq 2>&1 >/dev/null
-          then
-              sudo add-apt-repository ppa:rmescandon/yq
-              sudo apt update
-              sudo apt install yq -y
-          else 
-              echo "yq already installed"
-          fi
-- stage: Build
-  displayName: Build and push stage    
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      name: $(poolName)
-    steps:
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        buildContext: '$(Build.SourcesDirectory)/DnkChangeHistoryService'
-        containerRegistry: '$(registryServiceConnection)'
-        tags: |
-          latest
-          $(tag)
-- stage: Deploy
-  displayName: Update buildnumber in deployment repository
-  jobs:
-  - job: Deploy
-    displayName: Deploy
-    pool:
-      name: $(poolName)
-    steps:
-    - checkout: DnkChangeHistoryService-Deploy
-      persistCredentials: true
-    - script: |
-        if ! command -v yq 2>&1 >/dev/null
-        then
-            echo "yq could not be found"
-            exit 1        
-        fi       
-        echo "Current values of buildNumber:"
-        cat argo-cd/changehistory/values-stage.yaml
-        echo "Updating buildNumber in values-stage.yaml..."
-        yq e '.buildNumber = "$(Build.BuildNumber)"' -i argo-cd/changehistory/values-stage.yaml
-        echo "Updated values of buildNumber:"
-        cat argo-cd/changehistory/values-stage.yaml
-    - script: |
-        git config --global user.email "$(Build.RequestedForEmail)"
-        git config --global user.name "$(Build.QueuedBy)"
-        git commit -am "Deploy: $(Build.BuildNumber)"
-        git remote -v
-        git branch -al
-        if git push origin HEAD:main; then
-          echo "Changes pushed successfully"
-        else
-          echo "Push Failed"
-          exit 1
-        fi          
+  - stage: InstallDependencies
+    displayName: Install missing dependencies
+    jobs:
+      - job: Dependencies
+        displayName: Dependencies
+        pool:
+          name: $(poolName)
+        steps:
+          - script: |
+              if ! command -v yq 2>&1 >/dev/null
+              then
+                  sudo add-apt-repository ppa:rmescandon/yq
+                  sudo apt update
+                  sudo apt install yq -y
+              else 
+                  echo "yq already installed"
+              fi
+  - stage: Build
+    displayName: Build and push stage
+    jobs:
+      - job: Build
+        displayName: Build
+        pool:
+          name: $(poolName)
+        steps:
+          - task: Docker@2
+            displayName: Build and push an image to container registry
+            inputs:
+              command: buildAndPush
+              repository: $(imageRepository)
+              dockerfile: $(dockerfilePath)
+              buildContext: "$(Build.SourcesDirectory)/DnkChangeHistoryService"
+              containerRegistry: "$(registryServiceConnection)"
+              tags: |
+                latest
+                $(tag)
+  - stage: Deploy
+    displayName: Update buildnumber in deployment repository
+    jobs:
+      - job: Deploy
+        displayName: Deploy
+        pool:
+          name: $(poolName)
+        steps:
+          - checkout: DnkChangeHistoryService-Deploy
+            persistCredentials: true
+          - script: |
+              if ! command -v yq 2>&1 >/dev/null
+              then
+                  sudo add-apt-repository ppa:rmescandon/yq
+                  sudo apt update
+                  sudo apt install yq -y
+              else 
+                  echo "yq already installed"
+              fi       
+              echo "Current values of buildNumber:"
+              cat argo-cd/changehistory/values-stage.yaml
+              echo "Updating buildNumber in values-stage.yaml..."
+              yq e '.buildNumber = "$(Build.BuildNumber)"' -i argo-cd/changehistory/values-stage.yaml
+              echo "Updated values of buildNumber:"
+              cat argo-cd/changehistory/values-stage.yaml
+          - script: |
+              git config --global user.email "$(Build.RequestedForEmail)"
+              git config --global user.name "$(Build.QueuedBy)"
+              git commit -am "Deploy: $(Build.BuildNumber)"
+              git remote -v
+              git branch -al
+              if git push origin HEAD:main; then
+                echo "Changes pushed successfully"
+              else
+                echo "Push Failed"
+                exit 1
+              fi
