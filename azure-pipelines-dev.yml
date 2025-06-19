@@ -30,6 +30,9 @@ variables:
     # Agent VM image name
   - name: vmImageName
     value: "ubuntu-latest"
+  - name: buildConfiguration
+    value: 'Release'
+
 
 stages:
   - stage: Build
@@ -61,7 +64,7 @@ stages:
                 $(Build.SourcesDirectory)/DnkChangeHistoryService/DnkChangeHistoryService.Tests/DnkChangeHistoryService.Tests.csproj
                 $(Build.SourcesDirectory)/DnkChangeHistoryService/DnkChangeHistoryService.Infrastructure.Tests/DnkChangeHistoryService.Infrastructure.Tests.csproj
                 $(Build.SourcesDirectory)/DnkChangeHistoryService/DnkChangeHistoryService.FunctionalTests/DnkChangeHistoryService.FunctionalTests.csproj
-
+              arguments: --configuration $(buildConfiguration)
           # Excludes functional tests due to pricing of testcontainer framework in AzureDevops
           - task: DotNetCoreCLI@2
             displayName: "Run tests (except functional tests)"
