@@ -20,48 +20,58 @@ public class CommentHistoryQueryRepositoryTests
         // Arrange
         this.context = this.CreateContext();
         CommentHistoryQueryRepository repository = new(this.context);
-        Guid targetCommentId = Guid.NewGuid();
+        Guid targetReportId = Guid.Parse("0fc5e6ef-a22a-46ff-be50-4881c16062eb");
+        string targetContextId = "SomeContextId"; // Provide a valid context ID
         CancellationToken cancellationToken = CancellationToken.None;
 
         List<CommentHistory> fakeData = new()
+    {
+        new CommentHistory
         {
-            new CommentHistory
-            {
-                Id = Guid.NewGuid(),
-                CommentId = targetCommentId,
-                UserId = Guid.NewGuid(),
-                CreationDate = DateTime.UtcNow,
-                Reason = CommentHistoryReason.Created
-            },
-            new CommentHistory
-            {
-                Id = Guid.NewGuid(),
-                CommentId = targetCommentId,
-                UserId = Guid.NewGuid(),
-                CreationDate = DateTime.UtcNow,
-                Reason = CommentHistoryReason.Created
-            },
-            new CommentHistory
-            {
-                Id = Guid.NewGuid(),
-                CommentId = Guid.NewGuid(),
-                UserId = Guid.NewGuid(),
-                CreationDate = DateTime.UtcNow,
-                Reason = CommentHistoryReason.Created
-            }
-        };
+            Id = Guid.NewGuid(),
+            ReportId = targetReportId,
+            ContextId = targetContextId,
+            DisclosureRequirementId = "Requirement1",
+            CommentId = Guid.NewGuid(),
+            UserId = Guid.NewGuid(),
+            CreationDate = DateTime.UtcNow,
+            Reason = CommentHistoryReason.Created
+        },
+        new CommentHistory
+        {
+            Id = Guid.NewGuid(),
+            ReportId = targetReportId,
+            ContextId = targetContextId,
+            DisclosureRequirementId = "Requirement2",
+            CommentId = Guid.NewGuid(),
+            UserId = Guid.NewGuid(),
+            CreationDate = DateTime.UtcNow,
+            Reason = CommentHistoryReason.Created
+        },
+        new CommentHistory
+        {
+            Id = Guid.NewGuid(),
+            ReportId = Guid.NewGuid(),
+            ContextId = "DifferentContextId",
+            DisclosureRequirementId = "Requirement3",
+            CommentId = Guid.NewGuid(),
+            UserId = Guid.NewGuid(),
+            CreationDate = DateTime.UtcNow,
+            Reason = CommentHistoryReason.Created
+        }
+    };
 
         IQueryable<CommentHistory> queryableData = fakeData.AsQueryable();
         DbSet<CommentHistory> dbSet = queryableData.BuildMockDbSet();
         this.context.CommentHistories = dbSet;
 
         // Act
-        IEnumerable<CommentHistory> result = await repository.GetCommentHistories(targetCommentId, cancellationToken);
+        IEnumerable<CommentHistory> result = await repository.GetCommentHistories(targetReportId, targetContextId, cancellationToken);
 
         // Assert
         Assert.That(result, Is.Not.Null);
         Assert.That(result.Count(), Is.EqualTo(2));
-        Assert.That(result.All(h => h.CommentId == targetCommentId), Is.True);
+        Assert.That(result.All(h => h.ReportId == targetReportId && h.ContextId == targetContextId), Is.True);
     }
 
     [Test]
@@ -70,13 +80,17 @@ public class CommentHistoryQueryRepositoryTests
         // Arrange
         this.context = this.CreateContext();
         CommentHistoryQueryRepository repository = new(this.context);
-        Guid targetCommentId = Guid.NewGuid();
+        string targetContextId = "targetContextId";
+        Guid targetReportId = Guid.Parse("0fc5e6ef-a22a-46ff-be50-4881c16062eb");
         CancellationToken cancellationToken = CancellationToken.None;
 
         List<CommentHistory> fakeData = new()
         {
             new CommentHistory
             {
+                ReportId = Guid.NewGuid(),
+                ContextId = "DifferentContextId",
+                DisclosureRequirementId = "Requirement3",
                 Id = Guid.NewGuid(),
                 CommentId = Guid.NewGuid(),
                 UserId = Guid.NewGuid(),
@@ -90,7 +104,7 @@ public class CommentHistoryQueryRepositoryTests
         this.context.CommentHistories = dbSet;
 
         // Act
-        IEnumerable<CommentHistory> result = await repository.GetCommentHistories(targetCommentId, cancellationToken);
+        IEnumerable<CommentHistory> result = await repository.GetCommentHistories(targetReportId, targetContextId, cancellationToken);
 
         // Assert
         Assert.That(result, Is.Not.Null);
