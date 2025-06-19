@@ -49,8 +49,8 @@ stages:
             inputs:
               command: restore
               projects: |
-                $(Build.SourcesDirectory)/DnkChangeHistoryService/DnkChangeHistoryService.Infrastructure.Tests/DnkChangeHistoryService.Infrastructure.Tests.csproj
                 $(Build.SourcesDirectory)/DnkChangeHistoryService/DnkChangeHistoryService.Tests/DnkChangeHistoryService.Tests.csproj
+                $(Build.SourcesDirectory)/DnkChangeHistoryService/DnkChangeHistoryService.Infrastructure.Tests/DnkChangeHistoryService.Infrastructure.Tests.csproj
                 $(Build.SourcesDirectory)/DnkChangeHistoryService/DnkChangeHistoryService.FunctionalTests/DnkChangeHistoryService.FunctionalTests.csproj
 
           - task: DotNetCoreCLI@2
@@ -58,9 +58,9 @@ stages:
             inputs:
               command: build
               projects: |
-                $(Build.SourcesDirectory)/DnkChangeHistoryService.Infrastructure.Tests/DnkChangeHistoryService.Infrastructure.Tests.csproj
-                $(Build.SourcesDirectory)/DnkChangeHistoryService.Tests/DnkChangeHistoryService.Tests.csproj
-                $(Build.SourcesDirectory)/DnkChangeHistoryService.FunctionalTests/DnkChangeHistoryService.FunctionalTests.csproj
+                $(Build.SourcesDirectory)/DnkChangeHistoryService/DnkChangeHistoryService.Tests/DnkChangeHistoryService.Tests.csproj
+                $(Build.SourcesDirectory)/DnkChangeHistoryService/DnkChangeHistoryService.Infrastructure.Tests/DnkChangeHistoryService.Infrastructure.Tests.csproj
+                $(Build.SourcesDirectory)/DnkChangeHistoryService/DnkChangeHistoryService.FunctionalTests/DnkChangeHistoryService.FunctionalTests.csproj
               arguments: --configuration $(buildConfiguration)
 
           # Excludes functional tests due to pricing of testcontainer framework in AzureDevops
@@ -69,8 +69,8 @@ stages:
             inputs:
               command: test
               projects: |
-                $(Build.SourcesDirectory)/DnkChangeHistoryService.Infrastructure.Tests/DnkChangeHistoryService.Infrastructure.Tests.csproj
-                $(Build.SourcesDirectory)/DnkChangeHistoryService.Tests/DnkChangeHistoryService.Tests.csproj
+                $(Build.SourcesDirectory)/DnkChangeHistoryService/DnkChangeHistoryService.Tests/DnkChangeHistoryService.Tests.csproj
+                $(Build.SourcesDirectory)/DnkChangeHistoryService/DnkChangeHistoryService.Infrastructure.Tests/DnkChangeHistoryService.Infrastructure.Tests.csproj
               arguments: --configuration $(buildConfiguration)
               publishTestResults: true
       - job: Build
