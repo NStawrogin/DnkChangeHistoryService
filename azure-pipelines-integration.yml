@@ -19,67 +19,67 @@ resources:
       name: DnkChangeHistoryService-Deploy
 
 variables:
-# Container registry service connection established during pipeline creation
-- group: container-registry-group
-- name: imageRepository
-  value: 'dnkchangehistoryservice-test'
-- name: dockerfilePath
-  value: '$(Build.SourcesDirectory)/DnkChangeHistoryService/DnkChangeHistoryService/Dockerfile'
-- name: tag 
-  value: '$(Build.BuildNumber)'
-  # Agent VM image name
-- name: vmImageName
-  value: 'ubuntu-latest'
+  # Container registry service connection established during pipeline creation
+  - group: container-registry-group
+  - name: imageRepository
+    value: "dnkchangehistoryservice-test"
+  - name: dockerfilePath
+    value: "$(Build.SourcesDirectory)/DnkChangeHistoryService/DnkChangeHistoryService/Dockerfile"
+  - name: tag
+    value: "$(Build.BuildNumber)"
+    # Agent VM image name
+  - name: vmImageName
+    value: "ubuntu-latest"
 
 stages:
-- stage: Build
-  displayName: Build and push stage
-  lockBehavior: sequential
-  variables:
-    - group: changehistory-build-concurrency-lock-group
-    
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: $(vmImageName)
-    steps:
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        buildContext: '$(Build.SourcesDirectory)/DnkChangeHistoryService'
-        containerRegistry: '$(registryServiceConnection)'
-        tags: |
-          latest
-          $(tag)
-- stage: Deploy
-  displayName: Update buildnumber in deployment repository
-  jobs:
-  - job: Deploy
-    displayName: Deploy
-    steps:
-    - checkout: DnkChangeHistoryService-Deploy
-      persistCredentials: true
-    - script: |
-        git pull origin main
-        echo "Current values of buildNumber:"
-        cat argo-cd/changehistory/values-integration.yaml
-        echo "Updating buildNumber in values-integration.yaml..."
-        yq e '.buildNumber = "$(Build.BuildNumber)"' -i argo-cd/changehistory/values-integration.yaml
-        echo "Updated values of buildNumber:"
-        cat argo-cd/changehistory/values-integration.yaml
-    - script: |
-        git config --global user.email "$(Build.RequestedForEmail)"
-        git config --global user.name "$(Build.QueuedBy)"
-        git commit -am "Deploy: $(Build.BuildNumber)"
-        git remote -v
-        git branch -al
-        if git push origin HEAD:main; then
-          echo "Changes pushed successfully"
-        else
-          echo "Push Failed"
-          exit 1
-        fi          
+  - stage: Build
+    displayName: Build and push stage
+    lockBehavior: sequential
+    variables:
+      - group: changehistory-build-concurrency-lock-group
+
+    jobs:
+      - job: Build
+        displayName: Build
+        pool:
+          vmImage: $(vmImageName)
+        steps:
+          - task: Docker@2
+            displayName: Build and push an image to container registry
+            inputs:
+              command: buildAndPush
+              repository: $(imageRepository)
+              dockerfile: $(dockerfilePath)
+              buildContext: "$(Build.SourcesDirectory)/DnkChangeHistoryService"
+              containerRegistry: "$(registryServiceConnection)"
+              tags: |
+                latest
+                $(tag)
+  - stage: Deploy
+    displayName: Update buildnumber in deployment repository
+    jobs:
+      - job: Deploy
+        displayName: Deploy
+        steps:
+          - checkout: DnkChangeHistoryService-Deploy
+            persistCredentials: true
+          - script: |
+              git pull origin main
+              echo "Current values of buildNumber:"
+              cat argo-cd/changehistory/values-integration.yaml
+              echo "Updating buildNumber in values-integration.yaml..."
+              yq e '.buildNumber = "$(Build.BuildNumber)"' -i argo-cd/changehistory/values-integration.yaml
+              echo "Updated values of buildNumber:"
+              cat argo-cd/changehistory/values-integration.yaml
+          - script: |
+              git config --global user.email "$(Build.RequestedForEmail)"
+              git config --global user.name "$(Build.QueuedBy)"
+              git commit -am "Deploy: $(Build.BuildNumber)"
+              git remote -v
+              git branch -al
+              if git push origin HEAD:main; then
+                echo "Changes pushed successfully"
+              else
+                echo "Push Failed"
+                exit 1
+              fi
