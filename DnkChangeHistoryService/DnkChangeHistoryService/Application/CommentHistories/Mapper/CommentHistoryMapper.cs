@@ -46,7 +46,7 @@ public class CommentHistoryMapper : ICommentHistoryMapper
             },
             CommentHistoryReason.SubTaskReopened => language switch
             {
-                GermanLanguageCode => "Teilaufgabe wiedereröffnet“",
+                GermanLanguageCode => "Teilaufgabe wiedereröffnet",
                 _ => "Subtask reopened"
             },
             CommentHistoryReason.Replied => language switch
